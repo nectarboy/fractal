@@ -1,0 +1,18 @@
+<title>burning ship fractal</title>
+<canvas id='c' width=512 height=512 style='border: 1px solid black;'></canvas>
+
+<script src='../fractal.js'></script>
+<script>
+function iterate_m(z, cr, ci) {
+    var real = z.real;
+    var imaginary = z.imaginary;
+    z.real = real*real - imaginary*imaginary;
+    z.imaginary = Math.abs(2*real*imaginary);
+
+    z.real += cr;
+    z.imaginary += ci;
+}
+
+zoom = 5;
+render_image();
+</script>

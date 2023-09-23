@@ -1,0 +1,21 @@
+<title>duck fractal</title>
+<h3>mandelduck by nectarboy (has this been found yet)</h3>
+<canvas id='c' width=512 height=512 style='border: 1px solid black;'></canvas>
+<img width=128 height=128 src='../img/mandelbrot_with_duc.webp' title='mandelbrot with duc' style='border: 1px solid black; position: absolute; bottom: 0; right: 0;'>
+
+<script src='../fractal.js'></script>
+<script>
+function iterate_m(z, cr, ci) {
+    var real = z.real;
+    var imaginary = z.imaginary;
+    z.real = real*real - imaginary*imaginary;
+    z.imaginary = 2*real*Math.abs(imaginary);
+
+    z.real += cr;
+    z.imaginary += ci;
+}
+
+zoom = 4;
+offx = -0.35;
+render_image();
+</script>

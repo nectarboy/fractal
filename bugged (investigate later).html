@@ -1,0 +1,76 @@
+<title>fractal</title>
+<canvas id='c' width=512 height=512 style='border: 1px solid black;'></canvas>
+<script>
+    
+var c = document.getElementById('c');
+var ctx = c.getContext('2d');
+var W = c.width;
+var H = c.height;
+
+var imgData = ctx.createImageData(W,H);
+var buf = imgData.data;
+function setPx(x,y, r,g,b) {
+    var ind = 4 * (0|(y)*W + 0|(x));
+
+    buf[ind++] = r;
+    buf[ind++] = g;
+    buf[ind++] = b;
+    buf[ind]   = 0xff;
+}
+
+// ---
+var zoom = 100;
+var scale = 0.01;
+var iterations = 100000;
+var depth = 2;
+var bound = 2;
+var bound2 = bound*bound;
+function square(z) {
+    var real = z.real;
+    var imaginary = z.imaginary;
+
+    z.real = real*real - imaginary*imaginary;
+    // if (imaginary === 0)
+    //     z.imaginary = 0;
+    // else
+        z.imaginary = 2*real*imaginary;
+}
+function abs(z) {
+    return Math.sqrt(z.real*z.real + z.imaginary*z.imaginary);
+}
+function abs2(z) {
+    return z.real*z.real + z.imaginary*z.imaginary;
+}
+function iterate_m(z, cr, ci) {
+    square(z);
+    z.real += cr;
+    z.imaginary += ci;
+}
+
+iterations = 0|(Math.sqrt(iterations));
+
+var valid = [];
+for (var cr = 0; cr < iterations; cr++) {
+    var _cr = cr*scale;
+for (var ci = 0; ci < iterations; ci++) {
+    var _ci = ci*scale;
+
+    var z = {real: 0, imaginary: 0};
+    var d = 0;
+    while (d++ < depth) {
+        iterate_m(z, _cr, _ci);
+        if (abs2(z) >= bound2)
+            break;
+    }
+
+    var color = 0xff*(1 - (d / depth));
+    setPx((z.real*zoom) + W/2, (z.imaginary*zoom) + H/2, color,color,color);
+};
+};
+// ---
+
+ctx.putImageData(imgData, 0,0);
+document.write('<br>done');
+
+
+</script>
