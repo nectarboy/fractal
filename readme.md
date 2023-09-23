@@ -1,5 +1,5 @@
 # Fractal
-<p align='center'><img src='https://github.com/nectarboy/fractal/blob/main/src/img/mandelbrot_with_duc.webp?raw=true'></p>
+<p align='center'><img src='https://github.com/nectarboy/fractal/blob/main/img/mandelbrot_with_duc.webp?raw=true'></p>
 
 a fractal viewer i made in a couple of hours to widen my understanding of them
 
